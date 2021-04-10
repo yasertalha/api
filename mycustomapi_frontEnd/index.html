@@ -75,12 +75,12 @@
           </p>
           <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">Create</span>
-            <kbd>http://localhost:5000/create</kbd>
+            <kbd>https://mycustomapis.herokuapp.com/create</kbd>
           </div>
           <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">Read</span>
             <kbd id="read"
-              >http://localhost:5000/read/1997412f-79be-44df-a1af-4acaa533dabb</kbd
+              >https://mycustomapis.herokuapp.com/read/1997412f-79be-44df-a1af-4acaa533dabb</kbd
             >
           </div>
           <div class="input-group mb-3">
@@ -111,7 +111,7 @@
           (item) =>
             (document.getElementById(
               item
-            ).innerHTML = `http://localhost:5000/${item}/${secretID}`)
+            ).innerHTML = `https://mycustomapis.herokuapp.com/${item}/${secretID}`)
         );
       }
       function fetchResult() {
@@ -131,7 +131,7 @@
 
             document.getElementById("warning").innerHTML = " ";
 
-            fetch("http://localhost:5000/create", {
+            fetch("https://mycustomapis.herokuapp.com/create", {
               method: "post",
               headers: {
                 "Content-Type": "application/json",

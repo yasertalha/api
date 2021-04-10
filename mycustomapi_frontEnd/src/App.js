@@ -18,14 +18,14 @@ function App() {
   });
   const [warning, setWarning] = useState();
   const [read, setRead] = useState(
-    "http://localhost:5000/read/1997412f-79be-44df-a1af-4acaa533dabb"
+    "https://mycustomapis.herokuapp.com/read/1997412f-79be-44df-a1af-4acaa533dabb"
   );
   const [update, setUpdate] = useState("Edit above response to generate Api");
   const [del, setDel] = useState("Edit above response to generate Api");
   const url = ["read", "update", "delete"];
   const supplyApi = (secretID) => {
     [setRead, setUpdate, setDel].map((item, index) =>
-      item(`http://localhost:5000/${url[index]}/${secretID}`)
+      item(`https://mycustomapis.herokuapp.com/${url[index]}/${secretID}`)
     );
   };
   const fetchResult = () => {
@@ -38,7 +38,7 @@ function App() {
 
         setWarning(" ");
 
-        fetch("http://localhost:5000/create", {
+        fetch("https://mycustomapis.herokuapp.com/create", {
           method: "post",
           headers: {
             "Content-Type": "application/json",

@@ -55,6 +55,14 @@ function App() {
       setWarning(" * check data with valid object");
     }
   };
+  const copyToClipboard =(id)=>{
+    var element = document.getElementById(id);
+    element.disabled = false;
+    element.select();
+    document.execCommand("Copy");
+    element.disabled = true;
+    window.getSelection().removeAllRanges()
+  }
   return (
     <div>
       <nav
@@ -63,7 +71,7 @@ function App() {
       >
         <div>
           <h1 className="navbar-brand" href="#">
-            custom api response
+          apirobo
           </h1>
         </div>
       </nav>
@@ -128,30 +136,38 @@ function App() {
             <span className="input-group-text" id="basic-addon1">
               Read
             </span>
-            <kbd id="read">
-              fetch('{read}')
-              <br /> &emsp;.then(response => response.json())
-              <br /> &emsp;.then(json => console.log(json))
-            </kbd>
+            <textarea disabled
+              spellCheck="false"
+              className="form-control"
+              id="read"
+              style={{ height: "100px" }}
+              value={
+                `fetch("${read}")
+              .then(response => response.json())
+              .then(json => console.log(json))`}
+            >
+            </textarea>
+            <button  onClick={()=>copyToClipboard('read')} className="btn btn-secondary btn-sm" style={{position: "absolute", right: "0px", top: "0px" }} > copy</button>
           </div>
           <div className="input-group mb-3">
             <span className="input-group-text" id="basic-addon1">
               Update
             </span>
-            <kbd>
-              {`fetch('${update}', {`}
-              <br />
-              &emsp;
-              {`  method: 'PUT',`}
-              <br />
-              &emsp;
-              {`  headers: { 'Content-Type': 'application/json'},`}
-              <br />
-              &emsp;
-              {`  body: JSON.stringify({"name":"Shyam","email":"shyamjaiswal@gmail.com"}) `}
-              <br />
-              {`}).then(response => response.json()).then(json => console.log(json)) `}
-            </kbd>
+            <textarea disabled
+              spellCheck="false"
+              className="form-control"
+              id="update"
+              style={{ height: "160px" }}
+              value={
+                `fetch('${update}', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json'},
+                body: JSON.stringify({"name":"Shyam","email":"shyamjaiswal@gmail.com"})})
+                .then(response => response.json())
+                .then(json => console.log(json))`}
+            >
+            </textarea>
+            <button  onClick={()=>copyToClipboard('update')} className="btn btn-secondary btn-sm" style={{position: "absolute", right: "0px", top: "0px" }} > copy</button>
           </div>
         </div>
       </div>

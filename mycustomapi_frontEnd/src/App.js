@@ -88,7 +88,7 @@ function App() {
           Generate{"  {your own JSON}"}
         </h1>
         <p className="mb-one text-lg">
-          Free to use online REST API for testing and prototyping
+          Free to use online REST API's for testing and prototyping
         </p>
       </div>
       <div

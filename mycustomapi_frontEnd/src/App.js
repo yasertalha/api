@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./App.css";
+import content from './Utils/content'
 
 function App() {
   const [userInput, setUserInput] = useState({
@@ -52,7 +53,7 @@ function App() {
         setWarning(" * Edit above data for new api");
       }
     } catch (e) {
-      setWarning(" * check data with valid object");
+      setWarning(" * check data with valid JSON object");
     }
   };
   const copyToClipboard =(id)=>{
@@ -71,7 +72,7 @@ function App() {
       >
         <div>
           <h1 className="navbar-brand" href="#">
-          apirobo
+          {content.appName}
           </h1>
         </div>
       </nav>
@@ -176,12 +177,3 @@ function App() {
 }
 
 export default App;
-/*
-delete
-
-<div className="input-group mb-3">
-            <span className="input-group-text" id="basic-addon1">
-              Delete
-            </span>
-            <kbd id="delete"> {del}</kbd>
-          </div>*/

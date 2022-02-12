@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./App.css";
-import content from './Utils/content'
+import content from './Utils/content.json'
 
 function App() {
   const [userInput, setUserInput] = useState({

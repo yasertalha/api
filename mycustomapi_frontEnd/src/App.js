@@ -1,69 +1,33 @@
 import React, { useState } from "react";
+import {useSelector,useDispatch} from 'react-redux'
 import "./App.css";
 import content from './Utils/content.json'
+import * as actions from './Redux/actions/action'
+import HasJsonStructure from './Components/HasJsonStructure'
+import CopyToClipboard from './Components/CopyToClipboard'
 
 function App() {
-  const [userInput, setUserInput] = useState({
-    employees: [
-      { name: "Shyam", email: "shyamjaiswal@gmail.com" },
-      { name: "Bob", email: "bob32@gmail.com" },
-      { name: "Jai", email: "jai87@gmail.com" },
-    ],
-  });
-  const [defaultInput, setDefaultInput] = useState({
-    employees: [
-      { name: "Shyam", email: "shyamjaiswal@gmail.com" },
-      { name: "Bob", email: "bob32@gmail.com" },
-      { name: "Jai", email: "jai87@gmail.com" },
-    ],
-  });
+  const ipResponse = useSelector((state)=> state.ipResponse);
+  const secretID = useSelector((state) => state.secretID);
+  const preInput = useSelector((state) => state.preInput);
+
+  const dispatch = useDispatch();
   const [warning, setWarning] = useState();
-  const [read, setRead] = useState(
-    "https://mycustomapis.herokuapp.com/read/1997412f-79be-44df-a1af-4acaa533dabb"
-  );
-  const [update, setUpdate] = useState("Edit above response to generate Api");
-  const [del, setDel] = useState("Edit above response to generate Api");
-  const url = ["read", "update", "delete"];
-  const supplyApi = (secretID) => {
-    [setRead, setUpdate, setDel].map((item, index) =>
-      item(`https://mycustomapis.herokuapp.com/${url[index]}/${secretID}`)
-    );
-  };
+
+  const update = preInput
+    ? `${content.baseUrl}/update/${secretID}`
+    : "Edit above response to generate Api"
+
   const fetchResult = () => {
-    try {
-      if (
-        JSON.stringify(defaultInput) !== JSON.stringify(userInput) &&
-        typeof JSON.parse(userInput) == "object"
-      ) {
-        console.log("am trying to fetch data" + userInput);
+    if (!ipResponse) return setWarning(" * Response can't be empty");
+    if (ipResponse === preInput) return setWarning(" * Api for above data is already constructed and displayed below");
+    if (!HasJsonStructure(ipResponse)) return setWarning(" * check data with valid JSON object");
 
-        setWarning(" ");
+    setWarning(" ");
+    dispatch(actions.createApi(ipResponse))
 
-        fetch("https://mycustomapis.herokuapp.com/create", {
-          method: "post",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: userInput,
-        })
-          .then((response) => response.json())
-          .then((json) => supplyApi(json.secretID))
-          .catch((err) => console.log("Request Failed", err));
-      } else {
-        setWarning(" * Edit above data for new api");
-      }
-    } catch (e) {
-      setWarning(" * check data with valid JSON object");
-    }
   };
-  const copyToClipboard =(id)=>{
-    var element = document.getElementById(id);
-    element.disabled = false;
-    element.select();
-    document.execCommand("Copy");
-    element.disabled = true;
-    window.getSelection().removeAllRanges()
-  }
+
   return (
     <div>
       <nav
@@ -86,7 +50,7 @@ function App() {
         }}
       >
         <h1 className="text-6xl mb-two bold" style={{ paddingBottom: "20px" }}>
-          Generate{"  {your own JSON}"}
+          Generate{"  {your own JSON}"} 
         </h1>
         <p className="mb-one text-lg">
           Free to use online REST API's for testing and prototyping
@@ -113,10 +77,9 @@ function App() {
               spellCheck="false"
               className="form-control"
               placeholder="//provide response data object here"
-              id="floatingTextarea2"
               style={{ height: "130px" }}
-              onChange={(e) => setUserInput(e.target.value)}
-              value={JSON.stringify(userInput.employees)}
+              onChange={(e) => dispatch({type:"UPDATE_INPUT",payload:(e.target.value)})}
+              value={ipResponse}
             ></textarea>
           </div>
           <button
@@ -143,12 +106,12 @@ function App() {
               id="read"
               style={{ height: "100px" }}
               value={
-                `fetch("${read}")
+                `fetch("${content.baseUrl}/read/${secretID}")
               .then(response => response.json())
               .then(json => console.log(json))`}
             >
             </textarea>
-            <button  onClick={()=>copyToClipboard('read')} className="btn btn-secondary btn-sm" style={{position: "absolute", right: "0px", top: "0px" }} > copy</button>
+            <button  onClick={()=>CopyToClipboard('read')} className="btn btn-secondary btn-sm" style={{position: "absolute", right: "0px", top: "0px" }} > copy</button>
           </div>
           <div className="input-group mb-3">
             <span className="input-group-text" id="basic-addon1">
@@ -168,7 +131,7 @@ function App() {
                 .then(json => console.log(json))`}
             >
             </textarea>
-            <button  onClick={()=>copyToClipboard('update')} className="btn btn-secondary btn-sm" style={{position: "absolute", right: "0px", top: "0px" }} > copy</button>
+            <button  onClick={()=>CopyToClipboard('update')} className="btn btn-secondary btn-sm" style={{position: "absolute", right: "0px", top: "0px" }} > copy</button>
           </div>
         </div>
       </div>

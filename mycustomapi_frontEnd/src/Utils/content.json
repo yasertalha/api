@@ -1,4 +1,4 @@
 {
-    "appName":"apirobo"
-    
+    "appName":"apirobo",
+    "baseUrl":"https://mycustomapis.herokuapp.com"
 }

@@ -19,10 +19,13 @@ function App() {
     : "Edit above response to generate Api"
 
   const fetchResult = () => {
+    //error handler and warnings
     if (!ipResponse) return setWarning(" * Response can't be empty");
+    if (!preInput)  return setWarning(" * Edit above response to generate your free Api");
     if (ipResponse === preInput) return setWarning(" * Api for above data is already constructed and displayed below");
     if (!HasJsonStructure(ipResponse)) return setWarning(" * check data with valid JSON object");
 
+    //create new api and clear warning
     setWarning(" ");
     dispatch(actions.createApi(ipResponse))
 

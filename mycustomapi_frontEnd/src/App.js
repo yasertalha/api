@@ -10,6 +10,7 @@ function App() {
   const ipResponse = useSelector((state)=> state.ipResponse);
   const secretID = useSelector((state) => state.secretID);
   const preInput = useSelector((state) => state.preInput);
+  const loading = useSelector((state) => state.loading);
 
   const dispatch = useDispatch();
   const [warning, setWarning] = useState();
@@ -87,8 +88,11 @@ function App() {
           <button
             onClick={fetchResult}
             className="btn btn-primary"
-            style={{ marginBottom: "15px", width: "130px" }}
+            style={{ marginBottom: "15px" }}
           >
+            {loading
+              ? <span style={{marginLeft:"10px",marginRight:"10px"}} class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              : null}
             Generate Api
           </button>
           <span id="warning" style={{ color: "red" }}>
@@ -102,37 +106,55 @@ function App() {
             <span className="input-group-text" id="basic-addon1">
               Read
             </span>
-            <textarea disabled
-              spellCheck="false"
-              className="form-control"
-              id="read"
-              style={{ height: "100px" }}
-              value={
-                `fetch("${content.baseUrl}/read/${secretID}")
+            {loading
+              ?
+              <div style={{ height: "100px", display:"flex" , justifyContent:"center",alignItems:"center" , backgroundColor: "#e9ecef"  }}
+                className="form-control">
+                <div class="spinner-border" role="status">
+                  <span class="visually-hidden"></span>
+                </div>
+              </div>
+              : <textarea disabled
+                spellCheck="false"
+                className="form-control"
+                id="read"
+                style={{ height: "100px" }}
+                value={
+                  `fetch("${content.baseUrl}/read/${secretID}")
               .then(response => response.json())
               .then(json => console.log(json))`}
-            >
-            </textarea>
+              >
+              </textarea>
+            }
             <button  onClick={()=>CopyToClipboard('read')} className="btn btn-secondary btn-sm" style={{position: "absolute", right: "0px", top: "0px" }} > copy</button>
           </div>
           <div className="input-group mb-3">
             <span className="input-group-text" id="basic-addon1">
               Update
             </span>
-            <textarea disabled
-              spellCheck="false"
-              className="form-control"
-              id="update"
-              style={{ height: "160px" }}
-              value={
-                `fetch('${update}', {
+            {loading
+              ?
+              <div style={{ height: "100px", display:"flex", justifyContent:"center",alignItems:"center", backgroundColor: "#e9ecef"  }}
+                className="form-control">
+                <div class="spinner-border" role="status">
+                  <span class="visually-hidden"></span>
+                </div>
+              </div>
+              : <textarea disabled
+                spellCheck="false"
+                className="form-control"
+                id="update"
+                style={{ height: "160px" }}
+                value={
+                  `fetch('${update}', {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json'},
                 body: JSON.stringify({"name":"Shyam","email":"shyamjaiswal@gmail.com"})})
                 .then(response => response.json())
                 .then(json => console.log(json))`}
-            >
-            </textarea>
+              >
+              </textarea>
+            }
             <button  onClick={()=>CopyToClipboard('update')} className="btn btn-secondary btn-sm" style={{position: "absolute", right: "0px", top: "0px" }} > copy</button>
           </div>
         </div>

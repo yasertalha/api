@@ -13,7 +13,8 @@ const iState = {
             "email": "jai87@gmail.com"
         }
     ]),
-      secretID:'69b882a3-ae46-492d-bd45-5914ca3c4e58'
+      secretID:'69b882a3-ae46-492d-bd45-5914ca3c4e58',
+      loading: false,
     };
     
     const apiReducer =(state=iState, actions)=>{
@@ -28,6 +29,12 @@ const iState = {
                 ...state,
                 secretID :actions.payload.secretID,
                 preInput :actions.payload.preInput
+            }
+        }
+        case 'UPDATE_LOADING_STATUS':{
+            return{
+                ...state,
+                loading: actions.payload.status
             }
         }
         default:

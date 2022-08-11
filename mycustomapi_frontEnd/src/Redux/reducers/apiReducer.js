@@ -37,6 +37,12 @@ const iState = {
                 loading: actions.payload.status
             }
         }
+        case 'UPDATE_PREINPUT':{
+            return{
+                ...state,
+                preInput :actions.payload.preInput
+            }
+        }
         default:
             return state;
     }

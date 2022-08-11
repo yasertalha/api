@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {useSelector,useDispatch} from 'react-redux'
 import "./App.css";
 import content from './Utils/content.json'
@@ -30,6 +30,10 @@ function App() {
     dispatch(actions.createApi(ipResponse))
 
   };
+
+  useEffect(()=>{
+    dispatch({ type: "UPDATE_PREINPUT", payload: {preInput:ipResponse} })
+  },[])
 
   return (
     <div>

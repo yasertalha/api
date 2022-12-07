@@ -21,6 +21,7 @@ mongoose.connection.on("error", (err) => {
   console.log("MONGODB error : " + err);
 });
 if (process.env.NODE_ENV == "production") {
+  console.log("...................************ PRODUCTION ENVIRONMENT *******...................")
   app.use(express.static("mycustomapi_frontEnd/build"));
   const path = require("path");
   app.get("*", (req, res) => {

@@ -5,12 +5,7 @@ const PORT = process.env.PORT || 5000;
 const { MONGODBURL } = require("./config.js/keys");
 
 const cors = require("cors");
-app.use(cors({
-    origin: *, // use your actual domain name (or localhost), using * is not recommended
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Origin', 'X-Requested-With', 'Accept', 'x-client-key', 'x-client-token', 'x-client-secret', 'Authorization'],
-    credentials: true
-}))
+app.use(cors());
 require("./user");
 app.use(express.json());
 app.use(require("./router"));

@@ -5,7 +5,9 @@ const PORT = process.env.PORT || 5000;
 const { MONGODBURL } = require("./config.js/keys");
 
 const cors = require("cors");
-app.use(cors());
+app.use(cors({
+ origin:"https://www.apirobo.live" 
+}));
 require("./user");
 app.use(express.json());
 app.use(require("./router"));

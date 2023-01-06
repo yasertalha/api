@@ -15,6 +15,7 @@ app.use((req,res,)=>{
 
     // Request headers you wish to allow
     res.setHeader('Access-Control-Allow-Headers', '*');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
 })
 
 app.use(cors());

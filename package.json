@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "npm install && node app.js",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix mycustomapi_frontEnd && npm run build --prefix mycustomapi_frontEnd"
   },
   "keywords": [],

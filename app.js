@@ -18,9 +18,9 @@ app.use((req,res,)=>{
     res.setHeader('Access-Control-Allow-Credentials', 'true');
 })
 
-app.use(cors());
-require("./user");
+
 app.use(express.json());
+app.use(cors());
 app.use(require("./router"));
 mongoose.connect(MONGODBURL, {
   useNewUrlParser: true,

@@ -5,9 +5,19 @@ const PORT = process.env.PORT || 5000;
 const { MONGODBURL } = require("./config.js/keys");
 
 const cors = require("cors");
-app.use(cors({
- origin:"https://www.apirobo.live" 
-}));
+
+app.use((req,res,)=>{
+    // Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', '*');
+
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', '*');
+
+    // Request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', '*');
+})
+
+app.use(cors());
 require("./user");
 app.use(express.json());
 app.use(require("./router"));

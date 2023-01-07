@@ -4,6 +4,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const { MONGODBURL } = require("./config.js/keys");
 
+require("./user");
 const cors = require("cors");
 
 app.use((req,res,)=>{

@@ -1,4 +1,4 @@
-# [www.apirobo.live](https://apirobo.netlify.app/)
+# [apirobo.netlify.app](https://apirobo.netlify.app/)
 # This repo is currently live @ above domain name
 # It provides fake api's for testing and prototyping
 
